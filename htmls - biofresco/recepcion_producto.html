@@ -1,0 +1,89 @@
+<!-- Aqui la idea es que aparezca la información recien ingresada de la recepción y se pueda ir agregando los distintos 
+ productos que se recepcionaron si es que es más de uno -->
+
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biofresco - Gestión de Inventario</title>
+    <link rel="stylesheet" href="css/style_reg_pro.css">
+    
+</head>
+<body>
+    <!-- ===== NAVBAR ===== -->
+     <header>
+        <div class="header">
+            <div class="info">
+                <p>Nuevo horario de atención: Lunes a viernes de 9:00 a 16:00 hrs</p>
+            </div>
+        </div>
+    </header>
+    <div class="navbar">
+        <img src="imagenes/logo_biofresco.png" alt="logo" class="logo">
+        <div class="nav-buttons">
+            <button id="notifBtn"><img src="imagenes/notificacion (1).png" alt="" class="notbutt"></button>
+            <button id="settingsBtn"><img src="imagenes/configuracion (1).png" alt="" class="notbutt"></button>
+        </div>
+    </div>
+    <div class="titulo">
+                <button class="menu-btn">Agrega los productos Recepcionados</button>
+    </div>
+    <div class="formulario">
+        <form action="#" method="POST" class="Formulario">
+            <label for="producto">Producto:</label>
+            <input type="text" id="producto" name="producto" required> 
+            <!-- Aqui hay que modificar, la idea es desplegar la lista de productos desde la base de datos -->
+
+            <label for="Lote">Lote:</label>
+            <input type="text" id="lote" name="lote" required>
+
+            <label for="cantidad">Cantidad:</label>
+            <div class="cantidad-contenedor">
+                <input type="number" id="cantidad" name="cantidad" required>
+                <select id="unidad" name="unidad" required>
+                    <option value="x">Seleccione opción..</option>
+                    <option value="unidades">Unidades</option>
+                    <option value="kg">Kg</option>
+                </select>
+            </div>
+
+            <label for="ubicacion">Ubicación en Bodega:</label>
+            <input type="text" id="ubicacion" name="ubicacion" required >
+
+            <button type="submit" class="btn-enviar">Agregar Producto</button>
+        </form>
+    </div>
+
+    <div id="mensaje" class= "mensaje" style="display:none;"></div>
+    <div id="mensaje2" class= "mensaje" style="display:none;"></div>
+
+            <!-- ===== PANEL DE NOTIFICACIONES ===== -->
+        <div id="notifPanel" class="side-panel">
+            <button class="close-btn" onclick="closePanel('notifPanel')">✖️</button>
+            <h2>Notificaciones</h2>
+            <div class="panel-item">notificacion</div>
+            <div class="panel-item">notificacion</div>
+        </div>
+
+        <!-- ===== PANEL DE CONFIGURACIÓN ===== -->
+        <div id="settingsPanel" class="side-panel">
+            <button class="close-btn" onclick="closePanel('settingsPanel')">✖️</button>
+            <h2>Configuración</h2>
+            <div class="panel-item">Ver perfil</div>
+            <div class="panel-item">Cerrar sesión</div>
+        </div>
+        <div class="box">
+            <button id="boton-terminar" class="btn-terminar">Terminar Recepción</button>
+        </div>
+
+    <div>
+        <footer class="footer">
+            <p>Copyright © Tienda Biofresco 2025. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+     <script src="js/script.js"></script>
+     <script src="js/script_recep_prod.js"></script>
+</body>
+</html>
