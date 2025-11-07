@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biofresco - Gestión de Inventario</title>
+    <link rel="stylesheet" href="css/style_reg_pro.css">
+    
+</head>
+<body>
+    <!-- ===== NAVBAR ===== -->
+     <header>
+        <div class="header">
+            <div class="info">
+                <p>Nuevo horario de atención: Lunes a viernes de 9:00 a 16:00 hrs</p>
+            </div>
+        </div>
+    </header>
+    <div class="navbar">
+        <img src="imagenes/logo_biofresco.png" alt="logo" class="logo">
+        <div class="nav-buttons">
+            <button id="notifBtn"><img src="imagenes/notificacion (1).png" alt="" class="notbutt"></button>
+            <button id="settingsBtn"><img src="imagenes/configuracion (1).png" alt="" class="notbutt"></button>
+        </div>
+    </div>
+    <div class="titulo">
+        <div class="row">
+                <button class="menu-btn">PRODUCTOS</button>
+        </div>
+    </div>
+
+    <div class="formulario">
+        <form action="#" method="POST" class="Formulario">
+            <label for="codigo">Codigo Producto:</label>
+            <input type="text" id="codigo" name="id" required>
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" name="descripcion" required>
+
+            <label for="vida">Vida util:</label>
+            <input type="number" id="vida" name="vida" required>
+
+            <button type="submit" class="btn-enviar">Registrar Producto</button>
+        </form>
+    </div>
+       
+
+            <!-- ===== PANEL DE NOTIFICACIONES ===== -->
+        <div id="notifPanel" class="side-panel">
+            <button class="close-btn" onclick="closePanel('notifPanel')">✖️</button>
+            <h2>Notificaciones</h2>
+            <div class="panel-item">notificacion</div>
+            <div class="panel-item">notificacion</div>
+        </div>
+
+        <!-- ===== PANEL DE CONFIGURACIÓN ===== -->
+        <div id="settingsPanel" class="side-panel">
+            <button class="close-btn" onclick="closePanel('settingsPanel')">✖️</button>
+            <h2>Configuración</h2>
+            <div class="panel-item">Ver perfil</div>
+            <div class="panel-item">Cerrar sesión</div>
+        </div>
+
+        <div id="mensaje" class= "mensaje" style="display:none;"></div>
+
+
+        <div>
+            <img src="imagenes/volver.png" alt="volver" class="volver-btn">
+        </div>
+
+    <div>
+        <footer class="footer">
+            <p>Copyright © Tienda Biofresco 2025. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script src="js/script_reg_producto.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
