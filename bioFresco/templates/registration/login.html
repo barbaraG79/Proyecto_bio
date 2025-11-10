@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biofresco - Gestión de Inventario</title>
+    <link rel="stylesheet" href="{% static 'css/style_reg_pro.css' %}">
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="info">
+                <p>Nuevo horario de atención: Lunes a viernes de 9:00 a 16:00 hrs</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="navbar">
+        <img src="{% static 'imagenes/logo_biofresco.png' %}" alt="logo" class="logo">
+        <!-- <div class="nav-buttons">
+            <button id="notifBtn"><img src="{% static 'imagenes/notificacion (1).png' %}" alt="" class="notbutt"></button>
+            <button id="settingsBtn"><img src="{% static 'imagenes/configuracion (1).png' %}" alt="" class="notbutt"></button>
+        </div> -->
+    </div>
+    <div class="formulario">
+        <form action="" method="post">
+            {% csrf_token %}
+            <h2>¡Bienvenido!</h2>
+            <input type="text" name="username" placeholder="Nombre de usuario"><br>
+            <input type="password" name="password" placeholder="Contraseña"><br>
+            <button type="submit" class="btn-enviar">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color:red">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    
+    <footer class="footer">
+        <p>Copyright © Tienda Biofresco 2025. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

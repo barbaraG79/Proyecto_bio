@@ -1,0 +1,70 @@
+{% load static %}
+ 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biofresco - Gestión de Inventario</title>
+    <link rel="stylesheet" href="{% static 'css/style_.css' %}">
+    
+</head>
+<body>
+    <!-- ===== NAVBAR ===== -->
+     <header>
+            Nuevo horario de atención: Lunes a viernes de 9:00 a 16:00 hrs
+    </header>
+    <div class="navbar">
+        <img src="{% static 'imagenes/logo_biofresco.png' %}" alt="logo" class="logo">
+        <div class="nav-buttons">
+            <button id="notifBtn"><img src="{% static 'imagenes/notificacion (1).png' %}" alt="" class="notbutt"></button>
+            <button id="settingsBtn"><img src="{% static 'imagenes/configuracion (1).png' %}" alt="" class="notbutt"></button>
+        </div>
+    </div>
+    <div class="menu">
+        <img src="{% static 'imagenes/MENÚ (1).png' %}" alt="menu" class="menu">
+    </div>
+ 
+    <!-- ===== CONTENIDO ===== -->
+    <div class="container">
+       
+        <div class="buttons">
+            <div class="row">
+                <a href="{% url 'productos' %}"><button class="main-btn">PRODUCTOS</button></a>
+                <a href="{% url 'home' %}"><button class="main-btn">PEDIDOS</button></a>
+            </div>
+            <div class="row">
+                <a href="{% url 'recepcion' %}"><button class="main-btn">RECEPCIÓN DE PRODUCTOS</button></a>
+                <a href="{% url 'confirmacion' %}"><button class="main-btn">CONFIRMACIÓN DE PEDIDOS</button></a>
+            </div>
+            <div class="row">
+                <a href="{% url 'home' %}"><button class="main-btn">REPORTES</button></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PANEL DE NOTIFICACIONES ===== -->
+    <div id="notifPanel" class="side-panel">
+        <button class="close-btn" onclick="closePanel('notifPanel')">✖️</button>
+        <h2>Notificaciones</h2>
+        <div class="panel-item">notificacion</div>
+        <div class="panel-item">notificacion</div>
+    </div>
+
+    <!-- ===== PANEL DE CONFIGURACIÓN ===== -->
+    <div id="settingsPanel" class="side-panel">
+        <button class="close-btn" onclick="closePanel('settingsPanel')">✖️</button>
+        <h2>Configuración</h2>
+        <div class="panel-item">Ver perfil</div>
+        <div class="panel-item">Cerrar sesión</div>
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+
+    <div>
+
+        <footer class="footer">
+            <p>Copyright © Tienda Biofresco 2025. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>
