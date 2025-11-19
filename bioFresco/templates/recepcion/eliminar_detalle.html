@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biofresco - Eliminar Detalle</title>
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style_.css' %}">
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+</head>
+
+<body class="b-light d-flex">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container-fluid">
+            <div class="logo mb-2 fs-4 mt-2">☰</div>
+
+            <a href="{% url 'home' %}">
+                <img class="logo-bio ml-2 fs-5" src="{% static 'imagenes/logo_biofresco.png' %}" alt="">
+            </a>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item px-2"><a class="nav-link poppins-medium" href="{% url 'home' %}">Inicio</a></li>
+                    <li class="nav-item px-2"><a class="nav-link fs-5" href="#" id="notifBtn">🔔</a></li>
+                    <li class="nav-item px-2"><a class="nav-link user text-white rounded-circle d-flex align-items-center justify-content-center" href="#" id="settingsBtn">
+                            {{ request.user.username|first|upper }}
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar d-flex flex-column align-items-center p-2 border-end shadow-sm"
+           style="width:70px; margin-top:70px;">
+        <ul class="nav flex-column text-center w-100">
+          <li class="nav-item p-3 mb-2"><a href="{% url 'home' %}">🏠</a></li>
+          <li class="nav-item p-3 mb-2"><a href="{% url 'productos' %}">🍎</a></li>
+          <li class="nav-item p-3 mb-2"><a href="{% url 'recepcion' %}">📥</a></li>
+          <li class="nav-item p-3 mb-2">📂</li>
+          <li class="nav-item p-3 mb-2">💼</li>
+          <li class="nav-item p-3 mb-2">📸</li>
+        </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main container" style="margin-top: 100px;">
+
+        <div class="shadow p-4 rounded bg-white mb-4">
+
+            <h3 class="poppins-medium mb-4 text-danger">Eliminar Detalle</h3>
+
+            <p class="mb-4">
+                Estás a punto de eliminar el siguiente detalle.  
+                <strong>Esta acción no se puede deshacer.</strong>
+            </p>
+
+            <!-- TABLA DETALLE -->
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th class="bg-light" style="width:200px;">ID Detalle</th>
+                        <td>{{ detalle.id_detalle }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Producto</th>
+                        <td>{{ detalle.idproducto.nombre }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Cantidad</th>
+                        <td>{{ detalle.cantidad }} {{ detalle.unidad }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Lote</th>
+                        <td>{{ detalle.lote }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Ubicación</th>
+                        <td>{{ detalle.ubicacion }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- FORM ELIMINACIÓN -->
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{% url 'desglose_recepcion' detalle.idrecepcion.id_recepcion %}" class="btn btn-secondary">
+                        ← Cancelar
+                    </a>
+
+                    <button type="submit" class="btn btn-danger">
+                        Eliminar Detalle
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </main>
+
+    <!-- MENSAJES -->
+    {% if messages %}
+    <div class="container mt-3" style="position: fixed; top: 80px; right: 20px; z-index: 9999; width: 300px;">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>

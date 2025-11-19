@@ -1,0 +1,137 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biofresco - Eliminar Recepción</title>
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style_.css' %}">
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+
+</head>
+
+<body class="b-light d-flex">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container-fluid">
+            <div class="logo mb-2 fs-4 mt-2">☰</div>
+
+            <a href="{% url 'home' %}">
+                <img class="logo-bio ml-2 fs-5" src="{% static 'imagenes/logo_biofresco.png' %}" alt="">
+            </a>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item px-2"><a class="nav-link poppins-medium" href="{% url 'home' %}">Inicio</a></li>
+                    <li class="nav-item px-2"><a class="nav-link fs-5" href="#" id="notifBtn">🔔</a></li>
+                    <li class="nav-item px-2"><a class="nav-link user text-white rounded-circle d-flex align-items-center justify-content-center" href="#" id="settingsBtn">
+                            {{ request.user.username|first|upper }}
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar d-flex flex-column align-items-center p-2 border-end shadow-sm"
+           style="width:70px; margin-top:70px;">
+        <ul class="nav flex-column text-center w-100">
+          <li class="nav-item p-3 mb-2"><a href="{% url 'home' %}">🏠</a></li>
+          <li class="nav-item p-3 mb-2"><a href="{% url 'productos' %}">🍎</a></li>
+          <li class="nav-item activo p-3 mb-2"><a href="{% url 'recepcion' %}">📥</a></li>
+        </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main container d-flex justify-content-center" style="margin-top: 100px;">
+
+        <div class="shadow p-5 rounded bg-white" style="width: 600px;">
+
+            <h3 class="poppins-medium text-center mb-4">Eliminar Recepción</h3>
+
+            <p class="poppins-regular">
+                ¿Estás seguro de que deseas eliminar la siguiente recepción?
+                <br> <strong>Se eliminarán también todos sus detalles.</strong>
+            </p>
+
+            <!-- TABLA DE INFORMACIÓN -->
+            <table class="table table-bordered poppins-regular my-4">
+                <tbody>
+                    <tr>
+                        <th class="bg-light m-2">ID Recepción</th>
+                        <td>{{ recepcion.id_recepcion }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light m-2">Proveedor</th>
+                        <td>{{ recepcion.nombre_proveedor }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light m-2">Fecha</th>
+                        <td>{{ recepcion.fecha_recepcion }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light m-2">Observaciones</th>
+                        <td>{{ recepcion.observaciones|default:"Sin observaciones" }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- FORMULARIO DE CONFIRMACIÓN -->
+            <form method="POST">
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-danger w-100 poppins-medium mb-3">
+                    Sí, eliminar recepción
+                </button>
+
+                <a href="{% url 'desglose_recepcion' recepcion.id_recepcion %}"
+                   class="btn btn-secondary w-100 poppins-regular mb-3">
+                    Cancelar
+                </a>
+            </form>
+
+        </div>
+
+    </main>
+
+        <!-- PANEL NOTIFICACIONES -->
+    <div id="notifPanel" class="side-panel">
+        <button class="close-btn" onclick="closePanel('notifPanel')">✖️</button>
+        <h2>Notificaciones</h2>
+        <div class="panel-item">Sin notificaciones</div>
+    </div>
+
+    <!-- PANEL CONFIGURACIÓN -->
+    <div id="settingsPanel" class="side-panel">
+        <button class="close-btn" onclick="closePanel('settingsPanel')">✖️</button>
+        <h2>Configuración</h2>
+        <div class="panel-item">Ver perfil</div>
+        <div class="panel-item">Cerrar sesión</div>
+    </div>
+
+    <!-- MENSAJES -->
+    {% if messages %}
+    <div class="container mt-3" style="position: fixed; top: 80px; right: 20px; z-index: 9999; width: 300px;">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>

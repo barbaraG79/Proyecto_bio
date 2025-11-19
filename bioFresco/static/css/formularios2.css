@@ -1,0 +1,52 @@
+body{
+    background-image: url(../imagenes/background_login.jpg);
+    background-size: 100%;
+}
+
+
+.formulario{
+    width: 500px;
+    height: 600px;
+    
+}
+
+.form{
+    justify-content: center;
+}
+
+/* font */
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+.mensaje {
+    background-color: white; 
+    color: black;              
+    padding: 40px 80px;        
+    border-radius: 8px;        
+    text-align: center;        
+    margin: 10px auto;         
+    width: fit-content;        
+    display: none;             
+    opacity: 0;                
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); 
+    font-weight: bold;         
+    font-size: 16px;           
+    z-index: 1000;             
+    position: relative;        
+    }

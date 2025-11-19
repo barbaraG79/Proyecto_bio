@@ -1,0 +1,191 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biofresco - Detalles de Recepción</title>
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style_.css' %}">
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+</head>
+
+<body class="b-light d-flex">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container-fluid">
+            <div class="logo mb-2 fs-4 mt-2">☰</div>
+
+            <a href="{% url 'home' %}">
+                <img class="logo-bio ml-2 fs-5" src="{% static 'imagenes/logo_biofresco.png' %}" alt="">
+            </a>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item px-2"><a class="nav-link poppins-medium" href="{% url 'home' %}">Inicio</a></li>
+                    <li class="nav-item px-2"><a class="nav-link fs-5" href="#" id="notifBtn">🔔</a></li>
+                    <li class="nav-item px-2"><a class="nav-link user text-white rounded-circle d-flex align-items-center justify-content-center" href="#" id="settingsBtn">
+                            {{ request.user.username|first|upper }}
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar d-flex flex-column align-items-center p-2 border-end shadow-sm"
+           style="width:70px; margin-top:70px;">
+        <ul class="nav flex-column text-center w-100">
+          <li class="nav-item p-3 mb-2"><a href="{% url 'home' %}">🏠</a></li>
+          <li class="nav-item p-3 mb-2"><a href="{% url 'productos' %}">🍎</a></li>
+          <li class="nav-item activo p-3 mb-2"><a href="{% url 'recepcion' %}">📥</a></li>
+          <li class="nav-item p-3 mb-2">📂</li>
+          <li class="nav-item p-3 mb-2">💼</li>
+          <li class="nav-item p-3 mb-2">📸</li>
+        </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main container" style="margin-top: 100px;">
+
+        <div class="shadow p-4 rounded bg-white mb-4">
+
+            <h3 class="poppins-medium mb-4">Detalles de la Recepción</h3>
+
+            <!-- TABLA DATOS RECEPCIÓN -->
+            <table class="table table-bordered poppins-regular mb-3">
+                <tbody>
+                    <tr>
+                        <th class="bg-light" style="width:200px;">ID Recepción</th>
+                        <td>{{ recepcion.id_recepcion }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Proveedor</th>
+                        <td>{{ recepcion.nombre_proveedor }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Fecha</th>
+                        <td>{{ recepcion.fecha_recepcion }}</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light">Observaciones</th>
+                        <td>{{ recepcion.observaciones|default:"Sin observaciones" }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- BOTONES RECEPCIÓN -->
+            <div class="text-end mb-4">
+                <a href="{% url 'editar_recepcion' recepcion.id_recepcion %}" class="btn btn-primary">
+                    Editar Recepción
+                </a>
+
+                <a href="{% url 'eliminar_recepcion' recepcion.id_recepcion %}" 
+                   class="btn btn-danger"
+                   onclick="return confirm('¿Eliminar esta recepción y TODOS sus detalles?');">
+                    Eliminar Recepción
+                </a>
+            </div>
+
+            <h4 class="poppins-medium">Detalles Registrados</h4>
+
+            <!-- BOTÓN AGREGAR DETALLE -->
+            <div class="text-end mb-2">
+                <a href="{% url 'agregarDetalleRecepcion' recepcion.id_recepcion %}" 
+                   class="btn btn-success">
+                    + Agregar Detalle
+                </a>
+            </div>
+
+            <!-- TABLA DETALLES -->
+            <table class="table table-striped table-hover poppins-regular">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID Detalle</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Lote</th>
+                        <th>Ubicación</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% if detalles %}
+                    {% for d in detalles %}
+                    <tr>
+                        <td>{{ d.id_detalle }}</td>
+                        <td>{{ d.idproducto.nombre }}</td>
+                        <td>{{ d.cantidad }}</td>
+                        <td>{{ d.lote }}</td>
+                        <td>{{ d.ubicacion }}</td>
+
+                        <td class="text-center">
+                            <a href="{% url 'editar_detalle' d.id_detalle %}" 
+                               class="btn btn-sm btn-primary ">
+                               Editar
+                            </a>
+
+                            <a href="{% url 'eliminar_detalle' d.id_detalle %}" 
+                               class="btn btn-sm btn-danger "
+                               onclick="return confirm('¿Eliminar este detalle?');">
+                               Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-3">
+                            No hay detalles registrados.
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+
+            <a href="{% url 'recepciones' %}" class="btn btn-secondary">← Volver</a>
+
+        </div>
+    </main>
+
+    <!-- PANEL NOTIFICACIONES -->
+    <div id="notifPanel" class="side-panel">
+        <button class="close-btn" onclick="closePanel('notifPanel')">✖️</button>
+        <h2>Notificaciones</h2>
+        <div class="panel-item">Sin notificaciones</div>
+    </div>
+
+    <!-- PANEL CONFIGURACIÓN -->
+    <div id="settingsPanel" class="side-panel">
+        <button class="close-btn" onclick="closePanel('settingsPanel')">✖️</button>
+        <h2>Configuración</h2>
+        <div class="panel-item">Ver perfil</div>
+        <div class="panel-item">Cerrar sesión</div>
+    </div>
+
+    <!-- MENSAJES -->
+    {% if messages %}
+    <div class="container mt-3" style="position: fixed; top: 80px; right: 20px; z-index: 9999; width: 300px;">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>
